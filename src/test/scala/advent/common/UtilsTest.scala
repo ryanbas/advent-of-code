@@ -5,7 +5,7 @@ import Utils.findDivisible
 
 class UtilsTest extends FreeSpec with Matchers {
   "findDivisible should find (9, 3) divisible in List(1, 9, 5, 3)" in {
-    findDivisible(List(1, 9, 5, 3)) shouldBe Some((9, 3))
+    findDivisible(List(2, 9, 5, 3)) shouldBe Some((9, 3))
   }
 
   "findDivisible should find (10, 5) divisible in List(10, 9, 5, 11)" in {

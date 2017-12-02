@@ -13,18 +13,8 @@ object Utils {
   }
 
   def findDivisible(list: List[Int]): Option[(Int, Int)] = {
-    var sorted = list.sorted.reverse
-    var smaller: Option[Int] = None
-    val bigger = sorted.dropWhile(h => {
-      val tmp = sorted.dropWhile(c => h % c != 0 || h == c).headOption.map((h, _))
-      smaller = tmp.map(_._2)
-
-      tmp.isEmpty
-    }).headOption
-
-    for {
-      max <- bigger
-      min <- smaller
-    } yield (max, min)
+    list.combinations(2)
+      .map(x => (x.max, x.min))
+      .find(x => x._1 != x._2 && x._1 % x._2 == 0)
   }
 }
