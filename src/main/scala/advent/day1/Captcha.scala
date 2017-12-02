@@ -25,8 +25,8 @@ object Captcha extends App {
   // The final solution -- a generalized version for any number of elements ahead
   def captcha(ahead: Int)(list: List[Int]): Int = {
     def elementsEqual(t: (Int, Int)) = t._1 == t._2
-    val pairs = list.drop(ahead) ++ list.take(ahead)
-    list.zip(pairs).map(p => if (elementsEqual(p)) p._1 else 0).sum
+    val rotated = list.drop(ahead) ++ list.take(ahead)
+    list.zip(rotated).map(p => if (elementsEqual(p)) p._1 else 0).sum
   }
 
   def captcha(input: String, ahead: Int = 1): Int = {
