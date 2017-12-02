@@ -1,35 +1,27 @@
 package advent.day2
 
-import common.Utils.resource
-
 import scala.io.Source
+import advent.common.Utils.resource
+import advent.common.Utils.findDivisible
 
 object Checksum extends App {
-  def findDivisible(list: List[Int]): Option[(Int, Int)] = {
-    var sorted = list.sorted.reverse
-    var smaller: Option[Int] = None
-    val bigger = sorted.dropWhile(h => {
-      val tmp = sorted.dropWhile(c => h % c != 0 || h == c).headOption.map((h, _))
-      smaller = tmp.map(_._2)
-
-      tmp.isEmpty
-    }).headOption
-
-    Some(bigger.get, smaller.get)
+  private def checksum(f: List[Int] => Option[Int])(rows: List[Int]*): Int = {
+    rows.flatMap(f(_)).sum
   }
 
-  def checksum(rows: List[Int]*): Int = {
-    rows.map(list => list.max - list.min).sum
-  }
+  private def minMaxDifference: List[Int] => Option[Int] =
+    (list: List[Int]) => Some(list.max - list.min)
+  private def divideDivisible: List[Int] => Option[Int] =
+    (list: List[Int]) => findDivisible(list).map(t => t._1 / t._2)
 
-  def checksum2(rows: List[Int]*): Int = {
-    rows.flatMap(findDivisible(_).map(t => t._1 / t._2)).sum
-  }
+  def checksumPart1(rows: List[Int]*): Int = checksum(minMaxDifference)(rows:_*)
+  def checksumPart2(rows: List[Int]*): Int = checksum(divideDivisible)(rows:_*)
 
   val fileSource = Source.fromFile(resource("day2", "input.txt").toFile)
   val input = fileSource.getLines.map(row => {
     row.split("\\s+").map(_.toInt).toList
   }).toList
 
-  println(checksum2(input:_*))
+  println(checksumPart1(input:_*))
+  println(checksumPart2(input:_*))
 }

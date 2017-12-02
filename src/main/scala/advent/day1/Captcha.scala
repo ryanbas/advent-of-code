@@ -1,9 +1,6 @@
 package advent.day1
 
-import java.nio.file.{Files, Paths}
-
-import common.Utils.fileLines
-
+import advent.common.Utils.fileLines
 
 object Captcha extends App {
   // Original solution for part 1 that didn't work at all for part 2
