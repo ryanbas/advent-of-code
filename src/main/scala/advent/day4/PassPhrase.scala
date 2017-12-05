@@ -14,14 +14,17 @@ object PassPhrase extends App {
     valid(l => Set(l.map(_.sortWith((a, b) => a > b)).map(_.toString):_*))(list)
   }
 
-  println("Part 1: " + Utils.fileLines("day4", "input.txt").toArray.toList
+  val lines = Utils.fileLines("day4", "input.txt").toArray.toList
+  println("Part 1: " + lines
     .map(_.toString)
     .map(line => if (validPart1(line.split(" ").toList)) 1 else 0)
     .sum)
 
-  println("Part 2: " + Utils.fileLines("day4", "input.txt").toArray.toList
+  println("Part 2: " + lines
     .map(_.toString)
     .map(line => if (validPart2(line.split(" ").toList)) 1 else 0)
     .sum)
+
+
 
 }
